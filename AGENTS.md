@@ -50,6 +50,7 @@ scripts/dockerhub-update.sh|.ps1 # bash / PowerShell wrappers around `uv run`
   scope *Read, Write, Delete*; description updates need Delete scope).
 - **Categories cannot be set via the Docker Hub API** (it silently ignores them). They are set
   by hand in the web UI. Current: *Developer tools*, *Web servers*.
+- **Legacy duplicate Docker Hub repos** (`yohannaftali/yohannaftali-nginx`) are older names for `yohannaftali/nginx`. Other apps still pull them, so they cannot be deleted. They are **frozen**: their overview carries a DEPRECATED notice pointing here (set 2026-10-05) and nothing may be pushed to them (apps may depend on its exact contents). Maintain only `yohannaftali/nginx`.
 - `README.md` is published verbatim as the Hub overview: keep it self-contained, no
   repo-relative links that only work on GitHub.
 

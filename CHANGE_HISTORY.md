@@ -2,6 +2,9 @@
 
 Newest first. One dated entry per notable change.
 
+## [2026-10-05] — chore: freeze legacy duplicate Docker Hub repos
+- `yohannaftali/yohannaftali-nginx` duplicate `yohannaftali/nginx` and are still pulled by other apps. Added a DEPRECATED overview and short description to each (images untouched, no new pushes) and recorded the policy in `AGENTS.md`. Docker Hub's "Archive repository" setting (web UI) can additionally block pushes.
+
 ## [2026-10-05] — chore: categories set
 - Docker Hub categories set manually: *Developer tools*, *Web servers* (verified via `scripts/dockerhub_update.py status`).
 

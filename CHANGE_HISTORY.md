@@ -2,6 +2,9 @@
 
 Newest first. One dated entry per notable change.
 
+## [2026-10-05] — chore: categories set
+- Docker Hub categories set manually: *Developer tools*, *Web servers* (verified via `scripts/dockerhub_update.py status`).
+
 ## [2026-10-05] — chore: apply the MariaDB repo's setup
 - `Dockerfile`: `NGINX_VERSION` build arg, OCI labels (kept the existing `github` label and the commented-out logrotate draft).
 - `.github/workflows/docker-publish.yml`: matrix `latest`/`stable`, amd64+arm64, weekly + on push + manual, then syncs README to the Hub overview. This rebuilds `latest`, last pushed 2023-09-05.

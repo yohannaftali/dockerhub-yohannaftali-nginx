@@ -49,7 +49,7 @@ scripts/dockerhub-update.sh|.ps1 # bash / PowerShell wrappers around `uv run`
 - **Secrets** (GitHub repo secrets): `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN` (Docker Hub PAT,
   scope *Read, Write, Delete*; description updates need Delete scope).
 - **Categories cannot be set via the Docker Hub API** (it silently ignores them). They are set
-  by hand in the web UI.
+  by hand in the web UI. Current: *Developer tools*, *Web servers*.
 - `README.md` is published verbatim as the Hub overview: keep it self-contained, no
   repo-relative links that only work on GitHub.
 

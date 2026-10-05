@@ -1,6 +1,11 @@
-FROM nginx:latest
+ARG NGINX_VERSION=latest
+FROM nginx:${NGINX_VERSION}
 
-LABEL github="https://github.com/yohannaftali/dockerhub-yohannaftali-nginx"
+LABEL org.opencontainers.image.title="nginx" \
+      org.opencontainers.image.description="Official nginx image rebuilt weekly for production use" \
+      org.opencontainers.image.authors="Yohan Naftali" \
+      org.opencontainers.image.source="https://github.com/yohannaftali/dockerhub-yohannaftali-nginx" \
+      github="https://github.com/yohannaftali/dockerhub-yohannaftali-nginx"
 
 # # Install logrotate
 # RUN apt-get update && apt-get -y install logrotate

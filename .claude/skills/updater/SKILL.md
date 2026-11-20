@@ -35,8 +35,9 @@ For each tag `<v>` in the matrix:
 docker build --pull --build-arg NGINX_VERSION=<v> -t nginx-update:<v> .
 docker run --rm nginx-update:<v> nginx -v                 # record the version
 docker run --rm nginx-update:<v> nginx -t                 # config is valid
-docker run -d --name nginx-update -p 8080:80 nginx-update:<v>
-curl -sI http://localhost:8080 | head -1                   # expect HTTP/1.1 200 OK
+docker run -d --name nginx-update -p 127.0.0.1::80 nginx-update:<v>   # Docker picks a free port
+port=$(docker port nginx-update 80/tcp | head -1 | sed 's/.*://')
+curl -sI http://127.0.0.1:$port | head -1                  # expect HTTP/1.1 200 OK
 docker rm -f nginx-update
 ```
 `--pull` is required so the local build uses the newest upstream base, not a cached one.

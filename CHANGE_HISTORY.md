@@ -5,6 +5,7 @@ Newest first. One dated entry per notable change.
 ## [2026-11-20] — chore: add `updater` skill
 - `.claude/skills/updater/SKILL.md`: pull newest upstream tags with `docker build --pull`, smoke-test, trigger `docker-publish.yml` via `workflow_dispatch`, verify on Docker Hub. No code change or commit needed for a plain refresh.
 - Manual refresh run the same day published `latest` = nginx 1.31.9 and `stable` = 1.30.7 (amd64+arm64).
+- Smoke test now binds a Docker-chosen free port on 127.0.0.1 instead of a fixed `8080`, so it does not fail when that port is in use.
 
 ## [2026-10-05] — chore: freeze legacy duplicate Docker Hub repos
 - `yohannaftali/yohannaftali-nginx` duplicate `yohannaftali/nginx` and are still pulled by other apps. Added a DEPRECATED overview and short description to each (images untouched, no new pushes) and recorded the policy in `AGENTS.md`. Docker Hub's "Archive repository" setting (web UI) can additionally block pushes.

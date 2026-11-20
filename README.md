@@ -96,6 +96,17 @@ docker inspect nginx --format '{{json .HostConfig.Binds}} {{json .HostConfig.Por
 
 Keeping the options in a `docker-compose.yml` turns every future update into the two commands above.
 
+### With Portainer
+
+The image must be on the Docker host where the stack runs (the Portainer *environment* you deployed it to), not on the host running the Portainer server. They are the same machine only when Portainer manages its own local Docker. You do not need to log in to the stack host: Portainer pulls there for you.
+
+- **Stack**: *Stacks* -> your stack -> *Editor* -> **Update the stack**, and turn on **Re-pull image and redeploy**. Portainer pulls the image on the stack's host and recreates the stack's containers.
+- **Single container**: *Containers* -> the container -> **Recreate**, and turn on **Re-pull image**.
+- **Several stacks on the same host using this image**: images are stored once per host, so re-pull in the first stack only; for the others, **Update the stack** without re-pull is enough.
+- **Docker Swarm**: every node that runs the service needs the image. **Re-pull image** on the stack or service update makes each node pull it. If containers stay on the old image, run `docker service update --force --image yohannaftali/nginx:stable <service>` on a manager.
+
+Button names can differ slightly between Portainer versions.
+
 ### Notes for nginx
 
 - Test your configuration against the new image before switching: `docker run --rm -v ./conf.d:/etc/nginx/conf.d:ro yohannaftali/nginx:stable nginx -t`.

@@ -2,6 +2,9 @@
 
 Newest first. One dated entry per notable change.
 
+## [2026-11-20] — docs: README guide for updating running containers
+- New "Updating running containers" section in `README.md` (also the Docker Hub overview): `docker pull` does not change a running container; how to recreate with docker compose or plain `docker run`, plus image-specific notes.
+
 ## [2026-11-20] — chore: add `updater` skill
 - `.claude/skills/updater/SKILL.md`: pull newest upstream tags with `docker build --pull`, smoke-test, trigger `docker-publish.yml` via `workflow_dispatch`, verify on Docker Hub. No code change or commit needed for a plain refresh.
 - Manual refresh run the same day published `latest` = nginx 1.31.9 and `stable` = 1.30.7 (amd64+arm64).

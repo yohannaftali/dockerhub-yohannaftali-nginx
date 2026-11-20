@@ -59,6 +59,50 @@ services:
       - ./logs:/var/log/nginx
 ```
 
+## Updating running containers
+
+`docker pull` only downloads the new image. A running container keeps using the image it was created from until you remove it and create it again. Data in volumes and bind mounts is kept; anything written inside the container itself is lost when it is recreated.
+
+### With docker compose (recommended)
+
+In the folder that has your `docker-compose.yml`:
+
+```bash
+docker compose pull          # download newer images
+docker compose up -d         # recreate only the containers whose image changed
+docker image prune -f        # optional: remove the old, unused images
+```
+
+To update one service only: `docker compose pull web && docker compose up -d web`.
+
+### With plain docker run
+
+```bash
+docker pull yohannaftali/nginx:stable
+
+# is the container on the old image? (different IDs = needs update)
+docker inspect -f '{{.Image}}' nginx
+docker image inspect -f '{{.Id}}' yohannaftali/nginx:stable
+
+docker stop nginx && docker rm nginx
+docker run -d --name nginx -p 80:80 -p 443:443 -v ./conf.d:/etc/nginx/conf.d:ro yohannaftali/nginx:stable
+```
+
+Recreate it with exactly the same options as before (ports, volumes, `-e` variables, network, `--restart`). If you do not remember them, read them before removing the container:
+
+```bash
+docker inspect nginx --format '{{json .HostConfig.Binds}} {{json .HostConfig.PortBindings}} {{json .Config.Env}} {{.HostConfig.NetworkMode}}'
+```
+
+Keeping the options in a `docker-compose.yml` turns every future update into the two commands above.
+
+### Notes for nginx
+
+- Test your configuration against the new image before switching: `docker run --rm -v ./conf.d:/etc/nginx/conf.d:ro yohannaftali/nginx:stable nginx -t`.
+- Recreating the container drops connections for a few seconds; do it at a quiet time.
+- `stable` changes less often than `latest` (mainline); prefer it for production.
+- **Old image name**: `yohannaftali/yohannaftali-nginx` is frozen and no longer updated, so pulling it brings nothing new. To get updates, switch the image to `yohannaftali/nginx:<tag>`.
+
 ## Build (maintainers)
 
 ```bash
